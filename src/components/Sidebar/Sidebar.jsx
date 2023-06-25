@@ -1,27 +1,17 @@
-import {AiOutlineMenu} from "react-icons/ai"
-
-const Sidebar = ({ open, onClose }) => {
+const Sidebar = () => {
   return (
-    <div
-      className={`sm:none duration-175 linear fixed !z-50 flex min-h-full flex-col bg-white pb-10 shadow-2xl shadow-white/5 transition-all dark:!bg-navy-800 dark:text-white md:!z-50 lg:!z-50 xl:!z-0 ${
-        open ? "translate-x-0" : "-translate-x-96"
-      }`}
-    >
-      <span
-        className="absolute top-4 right-4 block cursor-pointer xl:hidden"
-        onClick={onClose}
-      >
-        <AiOutlineMenu/>
-      </span>
-
-      <div className={`mx-[56px] mt-[50px] flex items-center`}>
-        <div className="mt-1 ml-1 h-2.5 font-poppins text-[26px] font-bold uppercase text-navy-700 dark:text-white">
-          Horizon <span className="font-medium">FREE</span>
+    <div className="sm:none duration-150 fixed !z-50 flex min-h-full flex-col bg-white shadow-2xl shadow-white/5 transition-all dark:!bg-gray-800 dark:text-gray-200 md:!z-50 xl:!z-0 translate-x-0">
+      <div className="mx-14 mt-12 flex items-center">
+        <div className="uppercase text-gray-700 dark:text-gray-200 font-bold text-2xl">
+          ex-<span className="font-medium">plan</span>
         </div>
       </div>
-      <div className="mt-[58px] mb-7 h-px bg-gray-300 dark:bg-white/30" />
 
-      <ul className="mb-auto pt-1"></ul>
+      <div className="mt-14 mb-7 h-px bg-gray-200 dark:bg-white/30">
+        <ul className="mb-auto pt-1">
+
+        </ul>
+      </div>
     </div>
   );
 };

@@ -8,12 +8,6 @@ export default {
 
   theme: {
     extend: {
-      colors: {
-        mode:{
-          black: "#050609",
-          white: "#FFFAFF",
-        }
-      },
       screens: {
         sm: "576px",
         "sm-max": { max: "576px" },
