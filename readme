@@ -1,3 +1,4 @@
+const [darkmode, setDarkmode] = useState(false);
 onClick = {() => {
   if (darkmode) {
     document.body.classList.remove("dark");
