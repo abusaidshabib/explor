@@ -17,7 +17,7 @@ const Sidebar = () => {
   // const active = "border-r-4 border-blue-600"
 
   return (
-    <div className="w-80 h-screen bg-light-50 dark:!bg-dark-50 shadow-2xl relative">
+    <div className="w-80 h-screen bg-light-50 dark:!bg-dark-50 shadow-xl relative">
       <div className="w-full flex justify-end absolute top-4 right-4">
         <AiOutlineClose className="dark:!text-light-100 text-xl text-dark-100" />
       </div>

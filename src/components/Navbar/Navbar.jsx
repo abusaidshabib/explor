@@ -7,7 +7,7 @@ import { AiOutlineClose } from "react-icons/ai";
 const Navbar = () => {
   const { pathname } = useLocation();
   const [darkmode, setDarkmode] = useState(false);
-  // console.log(typeof(pathname.substring(1)))
+  console.log(pathname.substring(1) == "")
 
   return (
     <nav className="z-40 sticky flex flex-wrap flex-row items-center justify-between m-8">
@@ -16,17 +16,17 @@ const Navbar = () => {
           Page /{" "}
           {pathname.substring(1) === "default"
             ? "Main Dashboard"
-            : pathname.substring(1)}
+            : pathname.substring(1)}{" "}
         </p>
         <p className="text-4xl font-bold text-dark-100 dark:!text-light-100 capitalize">
-          {pathname.substring(1) === "default"
+          {pathname.substring(1) === "default" || pathname.substring(1) == ""
             ? "Main Dashboard"
             : pathname.substring(1)}
         </p>
       </div>
 
       {/* right cards */}
-      <div className=" bg-white h-14 dark:!bg-dark-50 dark:!border-light-100 text-dark-100 rounded-full flex flex-wrap flex-row items-center justify-between shadow-2xl">
+      <div className=" bg-white h-14 dark:!bg-dark-50 dark:!border-light-100 text-dark-100 rounded-full flex flex-wrap flex-row items-center justify-between shadow-xl">
         <div className="p-3">
           {/* <IoMenuOutline className="text-light-50 text-3xl" /> */}
           <AiOutlineClose className="dark:!text-light-100 text-dark-100 text-3xl" />
