@@ -69,6 +69,7 @@ const InputAnalytics = ({setValue}) => {
           id=""
           placeholder="Enter Start date"
           onChange={(e) => setStartDate(e.target.value)}
+          defaultValue={startDate}
         />
       </div>
       <div className="w-full">
@@ -85,6 +86,7 @@ const InputAnalytics = ({setValue}) => {
           id=""
           placeholder="Enter End date"
           onChange={(e) => setEndDate(e.target.value)}
+          defaultValue={endDate}
         />
       </div>
       <div className="grid">

@@ -11,14 +11,14 @@ const AnalysisGraph = ({ value, totalUsage, sub, averageTraffic }) => {
             Total usage (USD){" "}
             <span className="text-3xl pb-1 text-blue-100">
               {" "}
-              $ {totalUsage}{" "}
+              $ {isNaN(Number(totalUsage).toFixed(2)) ? 0 : Number(totalUsage).toFixed(2) }{" "}
             </span>
           </p>
           <p className="text-xl font-bold text-dark-100 dark:!text-light-100 capitalize">
           averageTraffic {" "}
             <span className="text-3xl pb-1 text-blue-100">
               {" "}
-               {averageTraffic}{" "}
+               { isNaN(Number(averageTraffic).toFixed(2)) ? 0 : Number(averageTraffic).toFixed(2)}{" "}
             </span>
           </p>
         </div>
