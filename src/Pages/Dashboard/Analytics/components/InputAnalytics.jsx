@@ -1,88 +1,118 @@
-import {BsSearch} from "react-icons/bs";
-import {AiOutlineDown} from "react-icons/ai";
+import { AiOutlineDown } from "react-icons/ai";
+import { useDispatch } from "react-redux";
+import { setData, toggleCheckbox } from "../../../../features/input/checkboxSlice";
+import { useEffect, useState } from "react";
 
-const InputAnalytics = () => {
+// eslint-disable-next-line react/prop-types
+const InputAnalytics = ({setValue}) => {
+  const currentDate = new Date();
+  const end = currentDate.toISOString().slice(0, 10);
+
+  const start = new Date(currentDate);
+  start.setDate(start.getDate() - 30);
+  const thirtyDaysAgo = start.toISOString().slice(0, 10);
+
+  const [startDate, setStartDate] = useState(thirtyDaysAgo);
+  const [endDate, setEndDate] = useState(end);
+  const [apiKey, setApiKey] = useState();
+  const [display, setDisplay] = useState(false);
+  const dispatch = useDispatch();
+
+  const handleCheckboxChange = (checkboxValue) => {
+    dispatch(toggleCheckbox(checkboxValue));
+  };
+
+  useEffect(() => {
+    const headers = {
+      Authorization: `Bearer ${apiKey}`, // Replace openaiApiKey with your actual API key
+    };
+
+    fetch(
+      `http://localhost:5000/usage?start_date=${startDate}&end_date=${endDate}`,
+      {
+        headers: headers,
+      }
+    )
+      .then((res) => res.json())
+      .then((data) => setValue(data));
+  }, [endDate, startDate, apiKey, setValue]);
+
   return (
     <div className="grid grid-cols-3 gap-8">
-      <div className="w-full grid grid-cols-3">
-        <div></div>
-        <div>
-          <label
-            className="block text-xl mb-3 font-medium text-dark-100 dark:text-light-100"
-            htmlFor="start-date"
-          >
-            Add start date
-          </label>
-          <input
-            className="w-full p-3 h-16 dark:!bg-dark-50 outline-none text-dark-100 dark:!text-light-100 shadow-lg border-y border-l dark:border-gray-500  border-gray-200"
-            type="date"
-            name="start-date"
-            id="start-date"
-          />
-        </div>
-        <div>
-          <label
-            className="block text-xl mb-3 font-medium text-dark-100 dark:text-light-100"
-            htmlFor="start-date"
-          >
-            Add end date
-          </label>
-          <input
-            className="w-full p-3 h-16 dark:!bg-dark-50 outline-none text-dark-100 dark:!text-light-100 shadow-lg border-y dark:border-gray-500  border-gray-200 focus:border-light-100"
-            type="date"
-            name="start-date"
-            id="start-date"
-          />
-        </div>
-        <div>
-          <label
-            className="block text-xl mb-3 font-medium text-dark-100 dark:text-light-100"
-            htmlFor="start-date"
-          >
-            Timeline
-          </label>
-          <select className="bg-light-50 h-16 border-y border-r border-gray-200 text-dark-100 focus:ring-light-100 focus:border-light-100 block w-full p-2.5 dark:bg-dark-50 dark:border-gray-500 dark:placeholder-light-100 dark:text-light-100 outline-none shadow-lg">
-            <option value="">Last 7 days</option>
-            <option value="">Last 30 days</option>
-          </select>
-        </div>
+      <div className="w-full">
+        <label
+          className="block text-xl mb-3 font-medium text-dark-100 dark:text-light-100"
+          htmlFor="start-date"
+        >
+          Enter OpenAI Key
+        </label>
+        <input
+          className="bg-light-50 h-16 border border-gray-200 text-dark-100 text-sm focus:ring-light-100 focus:border-light-100 w-full p-2.5 dark:bg-dark-50 dark:border-gray-500 dark:placeholder-light-100 dark:text-light-100 outline-none shadow-lg text-left flex items-center justify-between"
+          type="text"
+          name=""
+          id=""
+          placeholder="Enter Api key"
+          onChange={(e) => setApiKey(e.target.value)}
+        />
+      </div>
+      <div className="w-full">
+        <label
+          className="block text-xl mb-3 font-medium text-dark-100 dark:text-light-100"
+          htmlFor="start-date"
+        >
+          Enter Start Date
+        </label>
+        <input
+          className="bg-light-50 h-16 border border-gray-200 text-dark-100 text-sm focus:ring-light-100 focus:border-light-100 w-full p-2.5 dark:bg-dark-50 dark:border-gray-500 dark:placeholder-light-100 dark:text-light-100 outline-none shadow-lg text-left flex items-center justify-between"
+          type="date"
+          name=""
+          id=""
+          placeholder="Enter Start date"
+          onChange={(e) => setStartDate(e.target.value)}
+        />
+      </div>
+      <div className="w-full">
+        <label
+          className="block text-xl mb-3 font-medium text-dark-100 dark:text-light-100"
+          htmlFor="start-date"
+        >
+          Enter End date
+        </label>
+        <input
+          className="bg-light-50 h-16 border border-gray-200 text-dark-100 text-sm focus:ring-light-100 focus:border-light-100 w-full p-2.5 dark:bg-dark-50 dark:border-gray-500 dark:placeholder-light-100 dark:text-light-100 outline-none shadow-lg text-left flex items-center justify-between"
+          type="date"
+          name=""
+          id=""
+          placeholder="Enter End date"
+          onChange={(e) => setEndDate(e.target.value)}
+        />
       </div>
       <div className="grid">
         <label
           className="block text-xl mb-3 font-medium text-dark-100 dark:text-light-100"
           htmlFor="start-date"
         >
-          Timeline
+          Models
         </label>
         <button
-          // onClick={()=> select}
+          onClick={() => setDisplay(!display)}
           className="bg-light-50 h-16 border border-gray-200 text-dark-100 text-sm focus:ring-light-100 focus:border-light-100 w-full p-2.5 dark:bg-dark-50 dark:border-gray-500 dark:placeholder-light-100 dark:text-light-100 outline-none shadow-lg text-left flex items-center justify-between"
           htmlFor="start-date"
         >
           <span>Model Types</span>
-          <AiOutlineDown/>
+          <AiOutlineDown />
         </button>
 
         {/* Select with multiple radio button */}
-        <div className="w-full bg-light-100">
-          <div className="flex">
-            <p className="h-16 px-5 text-dark-100 dark:!bg-dark-50 dark:!text-light-100 dark:border-gray-500 bg-light-50 grid place-content-center border-y border-l">
-              <BsSearch />
-            </p>
-            <input
-              className="p-3 h-16 w-full dark:!bg-dark-50 outline-none text-dark-100 dark:!text-light-100 border-y border-r dark:border-gray-500  border-gray-200"
-              type="text"
-              name="start-date"
-              id="start-date"
-            />
-          </div>
+        <div className={display ? "w-full bg-light-100" : "hidden"}>
           <div className="flex items-center px-4 dark:!bg-dark-50 bg-light-50 border dark:border-gray-500">
             <input
+              onClick={(e) => handleCheckboxChange(e.target.value)}
               className="p-3 h-16 w-8 dark:!bg-dark-50 outline-none text-dark-100 dark:!text-light-100 border-y border-r dark:border-gray-500  border-gray-200"
-              type="radio"
+              type="checkbox"
               name=""
-              id="default-radio-1"
               placeholder=""
+              value="Instruct Models"
             />
             <label
               htmlFor="default-radio-1"
@@ -93,11 +123,12 @@ const InputAnalytics = () => {
           </div>
           <div className="flex items-center px-4 dark:!bg-dark-50 bg-light-50 border dark:border-gray-500">
             <input
+              onClick={(e) => handleCheckboxChange(e.target.value)}
               className="p-3 h-16 w-8 dark:!bg-dark-50 outline-none text-dark-100 dark:!text-light-100 border-y border-r dark:border-gray-500  border-gray-200"
-              type="radio"
+              type="checkbox"
               name=""
-              id="default-radio-1"
               placeholder=""
+              value="Chat models"
             />
             <label
               htmlFor="default-radio-1"
@@ -108,11 +139,12 @@ const InputAnalytics = () => {
           </div>
           <div className="flex items-center px-4 dark:!bg-dark-50 bg-light-50 border dark:border-gray-500">
             <input
+              onClick={(e) => handleCheckboxChange(e.target.value)}
               className="p-3 h-16 w-8 dark:!bg-dark-50 outline-none text-dark-100 dark:!text-light-100 border-y border-r dark:border-gray-500  border-gray-200"
-              type="radio"
+              type="checkbox"
               name=""
-              id="default-radio-1"
               placeholder=""
+              value="Fine-tuned models"
             />
             <label
               htmlFor="default-radio-1"
@@ -123,11 +155,12 @@ const InputAnalytics = () => {
           </div>
           <div className="flex items-center px-4 dark:!bg-dark-50 bg-light-50 border dark:border-gray-500">
             <input
+              onClick={(e) => handleCheckboxChange(e.target.value)}
               className="p-3 h-16 w-8 dark:!bg-dark-50 outline-none text-dark-100 dark:!text-light-100 border-y border-r dark:border-gray-500  border-gray-200"
-              type="radio"
+              type="checkbox"
               name=""
-              id="default-radio-1"
               placeholder=""
+              value="Embedding models"
             />
             <label
               htmlFor="default-radio-1"
@@ -138,11 +171,12 @@ const InputAnalytics = () => {
           </div>
           <div className="flex items-center px-4 dark:!bg-dark-50 bg-light-50 border dark:border-gray-500">
             <input
+              onClick={(e) => handleCheckboxChange(e.target.value)}
               className="p-3 h-16 w-8 dark:!bg-dark-50 outline-none text-dark-100 dark:!text-light-100 border-y border-r dark:border-gray-500  border-gray-200"
-              type="radio"
+              type="checkbox"
               name=""
-              id="default-radio-1"
               placeholder=""
+              value="Image models"
             />
             <label
               htmlFor="default-radio-1"
@@ -153,11 +187,12 @@ const InputAnalytics = () => {
           </div>
           <div className="flex items-center px-4 dark:!bg-dark-50 bg-light-50 border dark:border-gray-500">
             <input
+              onClick={(e) => handleCheckboxChange(e.target.value)}
               className="p-3 h-16 w-8 dark:!bg-dark-50 outline-none text-dark-100 dark:!text-light-100 border-y border-r dark:border-gray-500  border-gray-200"
-              type="radio"
+              type="checkbox"
               name=""
-              id="default-radio-1"
               placeholder=""
+              value="Audio models"
             />
             <label
               htmlFor="default-radio-1"
@@ -173,11 +208,10 @@ const InputAnalytics = () => {
           className="block text-xl mb-3 font-medium text-dark-100 dark:text-light-100"
           htmlFor="start-date"
         >
-          Selected Data
+          Selected Timeline
         </label>
         <select className="bg-light-50 h-16 border border-gray-200 text-dark-100 text-sm focus:ring-light-100 focus:border-light-100 block w-full p-2.5 dark:bg-dark-50 dark:border-gray-500 dark:placeholder-light-100 dark:text-light-100 outline-none shadow-lg">
           <option value="">Timeline</option>
-          <option value="">Last 7 days</option>
           <option value="">Last 30 days</option>
         </select>
       </div>
