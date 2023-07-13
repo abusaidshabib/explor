@@ -28,27 +28,7 @@ const Sidebar = () => {
       </div>
       <div className="h-10" />
       <ul className="grid pl-8 gap-4">
-        <NavLink
-          to="default"
-          className={`h-8 flex items-center ${
-            isActiveRoute("default") ? "border-r-4 border-blue-100" : ""
-          }`}
-        >
-          <li className="flex items-center">
-            <span>
-              <MdHome
-                className={`text-2xl ${
-                  isActiveRoute("default")
-                    ? "text-blue-100"
-                    : "dark:!text-light-100"
-                }`}
-              />
-            </span>
-            <p className="leading-1 ml-4 font-bold text-gray-800 dark:text-gray-200">
-              Main Dashboard
-            </p>
-          </li>
-        </NavLink>
+        
         <NavLink
           to="analytics"
           className={`h-8 flex items-center ${
@@ -67,6 +47,27 @@ const Sidebar = () => {
             </span>
             <p className="leading-1 ml-4 font-bold text-gray-800 dark:text-gray-200">
               Analytics
+            </p>
+          </li>
+        </NavLink>
+        <NavLink
+          to="default"
+          className={`h-8 flex items-center ${
+            isActiveRoute("default") ? "border-r-4 border-blue-100" : ""
+          }`}
+        >
+          <li className="flex items-center">
+            <span>
+              <MdHome
+                className={`text-2xl ${
+                  isActiveRoute("default")
+                    ? "text-blue-100"
+                    : "dark:!text-light-100"
+                }`}
+              />
+            </span>
+            <p className="leading-1 ml-4 font-bold text-gray-800 dark:text-gray-200">
+              Main Dashboard
             </p>
           </li>
         </NavLink>

@@ -1,6 +1,6 @@
 import { AiOutlineDown } from "react-icons/ai";
 import { useDispatch } from "react-redux";
-import { setData, toggleCheckbox } from "../../../../features/input/checkboxSlice";
+import { toggleCheckbox } from "../../../../features/input/checkboxSlice";
 import { useEffect, useState } from "react";
 
 // eslint-disable-next-line react/prop-types
@@ -28,14 +28,14 @@ const InputAnalytics = ({setValue}) => {
     };
 
     fetch(
-      `http://localhost:5000/usage?start_date=${startDate}&end_date=${endDate}`,
+      `https://explore-api.vercel.app/usage?start_date=${startDate}&end_date=${endDate}`,
       {
         headers: headers,
       }
     )
       .then((res) => res.json())
       .then((data) => setValue(data));
-  }, [endDate, startDate, apiKey, setValue]);
+  }, [endDate, startDate, apiKey, dispatch, setValue]);
 
   return (
     <div className="grid grid-cols-3 gap-8">

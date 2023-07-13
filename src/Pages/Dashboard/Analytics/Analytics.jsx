@@ -1,4 +1,3 @@
-import { useSelector } from "react-redux";
 import AnalysisGraph from "./components/AnalysisGraph";
 import InputAnalytics from "./components/InputAnalytics";
 import { useState } from "react";
@@ -14,7 +13,7 @@ const Analytics = () => {
   return (
     <div>
       <InputAnalytics setValue={setValue}/>
-      <AnalysisGraph value={value} totalUsage={value?.usageData?.total_usage} />
+      <AnalysisGraph value={value} totalUsage={value?.usageData?.total_usage} sub={value?.sub} averageTraffic={value?.averageTraffic} />
     </div>
   );
 };
